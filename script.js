@@ -23,8 +23,6 @@ async function fetchData() {
                 `
                 const newCardContainer = document.getElementById('new-card-container');
 
-                console.log(cardName)
-
                 setTimeout(() => {
                     newCardContainer.appendChild(newCard)
                 }, 1000)
@@ -45,6 +43,7 @@ async function fetchData() {
                 const cardName = card.name.toLowerCase()
                 const cardDesc = card.desc.toLowerCase()
                 const cardArch = card.archetype ? card.archetype.toLowerCase() : '';
+                const cardLink = card.ygoprodeck_url
 
                 const formattedFileName = cardName.replace(/\s|"/g, '_')
 
@@ -58,15 +57,18 @@ async function fetchData() {
                 `
                     const newCardContainer = document.getElementById('new-card-container');
 
+                    console.log(filteredArr)
                     console.log(cardName)
-
+                    
                     setTimeout(() => {
                         newCardContainer.appendChild(newCard)
                     }, 1000)
+
+                    newCard.addEventListener('click', () => {
+                        window.open(cardLink)
+                    })
                 }
             })
-            console.log(filteredArr)
-            console.log(dataJson)
         } catch (error) {
             console.error(error)
         }
