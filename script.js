@@ -1,5 +1,5 @@
 const searchBtn = document.querySelector("#fetch-btn");
-const inputSearch = document.querySelector("#input-search-two");
+const inputSearch = document.querySelector("#input-search");
 const clearBtn = document.querySelector("#clear-btn");
 const newCardContainer = document.getElementById('new-card-container');
 
@@ -57,4 +57,23 @@ inputSearch.addEventListener('keydown', (e) => {
 // clear all cards at "clear" click
 clearBtn.addEventListener('click', () => {
     newCardContainer.innerHTML = '';
+});
+
+
+// Mostra il bottone torna in alto quando l'utente scende sotto una certa posizione
+window.addEventListener("scroll", function () {
+    const searchBar = document.querySelector(".search-box");
+    if (window.pageYOffset > 20) {
+        searchBar.classList.add("fixed");
+    } else {
+        searchBar.classList.remove("fixed");
+    }
+});
+
+// Funzione per scorrere fino all'inizio della pagina quando il bottone è cliccato
+document.getElementById("scrollToTopBtn").addEventListener("click", function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 });
