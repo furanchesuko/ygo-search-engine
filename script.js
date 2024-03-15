@@ -59,21 +59,22 @@ clearBtn.addEventListener('click', () => {
     newCardContainer.innerHTML = '';
 });
 
-
-// Mostra il bottone torna in alto quando l'utente scende sotto una certa posizione
+// Show button go-top and blocks bar on scroll
 window.addEventListener("scroll", function () {
     const searchBar = document.querySelector(".search-box");
     if (window.pageYOffset > 20) {
         searchBar.classList.add("fixed");
+        document.getElementById("scrollToTopBtn").style.display = "block";
     } else {
         searchBar.classList.remove("fixed");
+        document.getElementById("scrollToTopBtn").style.display = "none";
     }
 });
 
-// Funzione per scorrere fino all'inizio della pagina quando il bottone è cliccato
-document.getElementById("scrollToTopBtn").addEventListener("click", function () {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+//button to scroll on top page
+document.getElementById("scrollToTopBtn").addEventListener("click", function() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 });
