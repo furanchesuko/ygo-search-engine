@@ -3,18 +3,22 @@ const inputSearch = document.querySelector("#input-search-two")
 const clearBtn = document.querySelector("#clear-btn")
 
 async function fetchData() {
+    /* convert to lowerCase before fetch */
     const searchedWord = inputSearch.value.toLowerCase();
+    /* if input is empty */
     if (searchedWord == "") {
         try {
+            /* fetch data */
             const response = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php")
             const responseJson = await response.json()
             const dataJson = await responseJson.data
+            /* cicle every json data index */
             dataJson.forEach(card => {
                 const cardImage = card.card_images[0].image_url
                 const cardName = card.name.toLowerCase()
-
+                /* replace space with "_" */
                 const formattedFileName = cardName.replace(/\s|"/g, '_')
-
+                /* create new element */
                 const newCard = document.createElement('div');
                 newCard.classList.add("new-card")
                 newCard.innerHTML =
@@ -23,9 +27,15 @@ async function fetchData() {
                 `
                 const newCardContainer = document.getElementById('new-card-container');
 
-                setTimeout(() => {
-                    newCardContainer.appendChild(newCard)
-                }, 1000)
+                newCardContainer.appendChild(newCard)
+
+                newCard.addEventListener('click', () => {
+                    window.open(cardLink)
+                })
+
+                clearBtn.addEventListener('click', () => {
+                    newCard.remove()
+                })
             })
         } catch (error) {
             console.error(error)
@@ -36,6 +46,7 @@ async function fetchData() {
             const responseJson = await response.json()
             const dataJson = await responseJson.data
             console.log(dataJson)
+            /* empty array for filtered cards */
             const filteredArr = []
             dataJson.filter(card => {
 
@@ -46,7 +57,7 @@ async function fetchData() {
                 const cardLink = card.ygoprodeck_url
 
                 const formattedFileName = cardName.replace(/\s|"/g, '_')
-
+                /* if card contains (condition) push it in filtered array */
                 if (cardName.includes(searchedWord) || cardDesc.includes(searchedWord) || cardArch.includes(searchedWord)) {
                     filteredArr.push(cardImage)
                     const newCard = document.createElement('div');
@@ -57,9 +68,7 @@ async function fetchData() {
                 `
                     const newCardContainer = document.getElementById('new-card-container');
 
-                    setTimeout(() => {
-                        newCardContainer.appendChild(newCard)
-                    }, 1000)
+                    newCardContainer.appendChild(newCard)
 
                     console.log(cardName)
 
@@ -72,15 +81,13 @@ async function fetchData() {
                     })
                 }
             })
-
             console.log(filteredArr)
-            
         } catch (error) {
             console.error(error)
         }
     }
 }
-
+/* event listener for click fetch button and input keydown */
 searchBtn.addEventListener('click', (fetchData));
 inputSearch.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
