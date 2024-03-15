@@ -1,102 +1,60 @@
-const searchBtn = document.querySelector("#fetch-btn")
-const inputSearch = document.querySelector("#input-search-two")
-const clearBtn = document.querySelector("#clear-btn")
+const searchBtn = document.querySelector("#fetch-btn");
+const inputSearch = document.querySelector("#input-search-two");
+const clearBtn = document.querySelector("#clear-btn");
+const newCardContainer = document.getElementById('new-card-container');
 
 async function fetchData() {
-    /* remove blank at start/end and convert to lowerCase before fetch */
-    const searchedWord = inputSearch.value.trim().toLowerCase();
-    /* if input is empty */
-    if (searchedWord == "") {
-        try {
-            /* fetch data */
-            const response = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php")
-            const responseJson = await response.json()
-            const dataJson = await responseJson.data
-            /* cicle every json data index */
-            dataJson.forEach(card => {
-                const cardImage = card.card_images[0].image_url
-                const cardName = card.name.toLowerCase()
-                const cardLink = card.ygoprodeck_url
-                /* replace space with "_" */
-                const formattedFileName = cardName.replace(/\s|"/g, '_')
-                /* create new element */
+    try {
+        //remove input value's blank and converts into lower case
+        const searchedWord = inputSearch.value.trim().toLowerCase();
+        //fetch data
+        const response = await fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php");
+        const responseJson = await response.json();
+        const dataJson = await responseJson.data
+        // clear previous cards
+        newCardContainer.innerHTML = '';
+        //iterate every index
+        dataJson.forEach(card => {
+            const cardImage = card.card_images[0].image_url;
+            const cardName = card.name.toLowerCase();
+            const cardDesc = card.desc.toLowerCase();
+            const cardArch = card.archetype ? card.archetype.toLowerCase() : '';
+            const cardLink = card.ygoprodeck_url;
+            //replace space with underscore
+            const formattedFileName = cardName.replace(/\s|"/g, '_');
+            //condition
+            if (searchedWord === "" || cardName.includes(searchedWord) || cardDesc.includes(searchedWord) || cardArch.includes(searchedWord)) {
+                //create element
                 const newCard = document.createElement('div');
-                newCard.classList.add("new-card")
+                newCard.classList.add("new-card");
                 newCard.innerHTML =
                     `
-                <img class="new-card-image" src=${cardImage} alt=${formattedFileName} title=${formattedFileName}}>
-                `
-                const newCardContainer = document.getElementById('new-card-container');
-
-                newCardContainer.appendChild(newCard)
-
-                console.log(cardName)
-
+                <img class="new-card-image" 
+                src="${cardImage}" 
+                alt="${formattedFileName}" 
+                title="${formattedFileName}}">
+                `;
+                //append element
+                newCardContainer.appendChild(newCard);
+                //open links at image click
                 newCard.addEventListener('click', () => {
-                    window.open(cardLink)
-                })
-
-                clearBtn.addEventListener('click', () => {
-                    newCard.remove()
-                })
-            })
-        } catch (error) {
-            console.error(error)
-        }
-    } else {
-        try {
-
-            const response = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php/${searchedWord}`)
-            const responseJson = await response.json()
-            const dataJson = await responseJson.data
-            console.log(dataJson)
-            /* empty array for filtered cards */
-            const filteredArr = []
-            dataJson.filter(card => {
-
-                const cardImage = card.card_images[0].image_url
-                const cardName = card.name.toLowerCase()
-                const cardDesc = card.desc.toLowerCase()
-                const cardArch = card.archetype ? card.archetype.toLowerCase() : '';
-                const cardLink = card.ygoprodeck_url
-
-                const formattedFileName = cardName.replace(/\s|"/g, '_')
-                /* if card contains (condition) push it in filtered array */
-                if (cardName.includes(searchedWord) || cardDesc.includes(searchedWord) || cardArch.includes(searchedWord)) {
-                    filteredArr.push(cardImage)
-                    const newCard = document.createElement('div');
-                    newCard.classList.add("new-card")
-                    newCard.innerHTML =
-                        `
-                <img class="new-card-image" src=${cardImage} alt=${formattedFileName} title=${formattedFileName}}>
-                `
-                    const newCardContainer = document.getElementById('new-card-container');
-
-                    newCardContainer.appendChild(newCard)
-
-                    console.log(cardName)
-
-                    newCard.addEventListener('click', () => {
-                        window.open(cardLink)
-                    })
-
-                    clearBtn.addEventListener('click', () => {
-                        newCard.remove()
-                    })
-                }
-            })
-            console.log(filteredArr)
-        } catch (error) {
-            console.error(error)
-        }
+                    window.open(cardLink);
+                });
+            }
+        });
+    } catch (error) {
+        console.error(error);
     }
 }
-
-/* event listener for click fetch button and input keydown */
-searchBtn.addEventListener('click', (fetchData));
-
+//fetch at button "fetch" click
+searchBtn.addEventListener('click', fetchData);
+//fetch at enter keydown
 inputSearch.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        fetchData()
+        fetchData();
     }
+});
+// clear all cards at "clear" click
+clearBtn.addEventListener('click', () => {
+    newCardContainer.innerHTML = '';
 });
