@@ -1,8 +1,8 @@
-const searchImg = document.querySelector(".img-card")
-const inputSearch = document.querySelector("#input-search")
+const searchBtn = document.querySelector("#fetch-btn")
+const inputSearch = document.querySelector("#input-search-two")
+const clearBtn = document.querySelector("#clear-btn")
 
 async function fetchData() {
-    /* clearPage() */
     const searchedWord = inputSearch.value.toLowerCase();
     if (searchedWord == "") {
         try {
@@ -57,36 +57,33 @@ async function fetchData() {
                 `
                     const newCardContainer = document.getElementById('new-card-container');
 
-                    console.log(filteredArr)
-                    console.log(cardName)
-                    
                     setTimeout(() => {
                         newCardContainer.appendChild(newCard)
                     }, 1000)
 
+                    console.log(cardName)
+
                     newCard.addEventListener('click', () => {
                         window.open(cardLink)
                     })
+
+                    clearBtn.addEventListener('click', () => {
+                        newCard.remove()
+                    })
                 }
             })
+
+            console.log(filteredArr)
+            
         } catch (error) {
             console.error(error)
         }
     }
 }
 
-searchImg.addEventListener('click', (fetchData));
+searchBtn.addEventListener('click', (fetchData));
 inputSearch.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         fetchData()
     }
 });
-   
-
-
-/* function clearPage() {
-    const elementsToClear = document.querySelectorAll('#new-card-container');
-    elementsToClear.forEach(element => {
-        element.remove();
-    });
-} */
