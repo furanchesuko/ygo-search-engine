@@ -3,8 +3,8 @@ const inputSearch = document.querySelector("#input-search-two")
 const clearBtn = document.querySelector("#clear-btn")
 
 async function fetchData() {
-    /* convert to lowerCase before fetch */
-    const searchedWord = inputSearch.value.toLowerCase();
+    /* remove blank at start/end and convert to lowerCase before fetch */
+    const searchedWord = inputSearch.value.trim().toLowerCase();
     /* if input is empty */
     if (searchedWord == "") {
         try {
@@ -16,6 +16,7 @@ async function fetchData() {
             dataJson.forEach(card => {
                 const cardImage = card.card_images[0].image_url
                 const cardName = card.name.toLowerCase()
+                const cardLink = card.ygoprodeck_url
                 /* replace space with "_" */
                 const formattedFileName = cardName.replace(/\s|"/g, '_')
                 /* create new element */
@@ -28,6 +29,8 @@ async function fetchData() {
                 const newCardContainer = document.getElementById('new-card-container');
 
                 newCardContainer.appendChild(newCard)
+
+                console.log(cardName)
 
                 newCard.addEventListener('click', () => {
                     window.open(cardLink)
@@ -42,6 +45,7 @@ async function fetchData() {
         }
     } else {
         try {
+
             const response = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php/${searchedWord}`)
             const responseJson = await response.json()
             const dataJson = await responseJson.data
@@ -87,8 +91,10 @@ async function fetchData() {
         }
     }
 }
+
 /* event listener for click fetch button and input keydown */
 searchBtn.addEventListener('click', (fetchData));
+
 inputSearch.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         fetchData()

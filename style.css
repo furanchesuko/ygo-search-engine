@@ -62,7 +62,7 @@ section {
     justify-content: end;
     align-items: center;
     flex-wrap: nowrap;
-    min-width: 104px;
+    min-width: 100px;
 }
 
 #clear-btn {
