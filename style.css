@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
 }
 
 :root {
@@ -22,15 +22,42 @@ section {
     align-items: center;
 }
 
-#ygo-title {
+.navbar {
+    display: flex;
+    align-items: center;
+    gap:10px;
+    padding: 10px;
+}
+
+#logo-nav {
+    width: 20%;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+#title {
+    font-size: 70%;
+    width: 30%;
+    color:white;
+}
+
+#card-select{
+    width: 70px;
+    height: 30px;
+    font-size: 12px;
+}
+
+/* #ygo-title {
     color: #BD7544;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: rgb(44, 44, 44);
     text-align: center;
     padding: 40px;
-    font-size: 3em;
+    font-size: 2.5em;
     text-shadow: 5px 5px 10px black;
-}
+} */
+
+
 
 .search-box {
     width: 100%;
@@ -38,19 +65,18 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: top 0.3s;
-    padding:5px;
+    transition: top 300ms;
+    padding: 5px;
 }
 
 .search-box.fixed {
     position: fixed;
     top: 0;
     z-index: 1000;
-    transition:100ms;
-    background-color:rgb(24, 36, 51);
+    transition: 300ms;
+    background-color: rgb(24, 36, 51);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    height: 60px;
 }
 
 #input-search {
@@ -58,12 +84,12 @@ section {
     height: 100%;
     border-radius: 10px;
     padding: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     flex-grow: 1;
 }
 
-#clear-btn {
+.btn{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,19 +100,25 @@ section {
     height: 3em;
     margin: 5px;
     cursor: pointer;
+    background-color: rgb(190, 70, 70);
+    color:white;
+    border:1px outset white;
+}
+
+.btn:hover{
+    background-color: rgb(190, 50, 50);
+}
+
+.btn:active{
+    background-color: rgb(190, 10, 10);
+}
+
+#clear-btn {
+    
 }
 
 #fetch-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    width: 5em;
-    min-width: 40px;
-    max-width: 40px;
-    height: 3em;
-    margin: 5px;
-    cursor: pointer;
+
 }
 
 #new-card-container {
@@ -110,12 +142,6 @@ section {
     transition: 500ms;
 }
 
-
-
-
-
-
-/* Stili per il bottone torna in alto */
 #scrollToTopBtn {
     display: none;
     position: fixed;
@@ -135,12 +161,6 @@ section {
 #scrollToTopBtn:hover {
     background-color: #555;
 }
-
-
-
-
-
-
 
 /* media for 4k */
 @media screen and (max-width: 2560px) {
