@@ -1,7 +1,7 @@
 const searchBtn = document.querySelector("#fetch-btn");
 const inputSearch = document.querySelector("#input-search");
 const clearBtn = document.querySelector("#clear-btn");
-const newCardContainer = document.getElementById('new-card-container');
+const newCardContainer = document.querySelector('#new-card-container');
 
 async function fetchData() {
     try {
@@ -20,11 +20,11 @@ async function fetchData() {
             const cardDesc = card.desc.toLowerCase();
             const cardArch = card.archetype ? card.archetype.toLowerCase() : '';
             const cardLink = card.ygoprodeck_url;
-            //replace space with underscore
+            //replace blank with space
             const formattedFileName = cardName.replace(/\s|"/g, ' ')
             //condition
             if (searchedWord === "" || cardName.includes(searchedWord) || cardDesc.includes(searchedWord) || cardArch.includes(searchedWord)) {
-                //create element
+                //create element then add class and html to it
                 const newCard = document.createElement('div');
                 newCard.classList.add("new-card");
                 newCard.innerHTML =
@@ -60,7 +60,7 @@ clearBtn.addEventListener('click', () => {
 });
 
 // Show button go-top and blocks bar on scroll
-window.addEventListener("scroll", function () {
+window.addEventListener("scroll", () => {
     const searchBar = document.querySelector(".search-box");
     if (window.pageYOffset > 20) {
         searchBar.classList.add("fixed");
@@ -72,9 +72,9 @@ window.addEventListener("scroll", function () {
 });
 
 //button to scroll on top page
-document.getElementById("scrollToTopBtn").addEventListener("click", function() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+document.getElementById("scrollToTopBtn").addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 });
