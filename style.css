@@ -31,7 +31,7 @@ section {
 
 #logo-nav {
     width: 20%;
-    min-width: 150px;
+    min-width: 120px;
     max-width: 150px;
 }
 
@@ -82,11 +82,13 @@ section {
 #input-search {
     width: 90%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 100px;
     padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
     flex-grow: 1;
+    outline: none;
+    border:none;
 }
 
 .btn{

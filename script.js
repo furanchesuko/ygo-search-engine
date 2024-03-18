@@ -32,7 +32,7 @@ async function fetchData() {
                 <img class="new-card-image" 
                 src="${cardImage}" 
                 alt="${formattedFileName}" 
-                title="${formattedFileName}}">
+                title="${formattedFileName}">
                 `;
                 //append element
                 newCardContainer.appendChild(newCard);
