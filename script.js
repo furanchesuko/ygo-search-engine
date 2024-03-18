@@ -21,7 +21,7 @@ async function fetchData() {
             const cardArch = card.archetype ? card.archetype.toLowerCase() : '';
             const cardLink = card.ygoprodeck_url;
             //replace space with underscore
-            const formattedFileName = cardName.replace(/\s|"/g, '_');
+            const formattedFileName = cardName.replace(/\s|"/g, ' ')
             //condition
             if (searchedWord === "" || cardName.includes(searchedWord) || cardDesc.includes(searchedWord) || cardArch.includes(searchedWord)) {
                 //create element
