@@ -84,8 +84,8 @@ section {
     height: 100%;
     border-radius: 100px;
     padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
     flex-grow: 1;
     outline: none;
     border:none;
